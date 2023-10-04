@@ -1,6 +1,10 @@
 from flask import Flask, request
+import requests
 
 app = Flask(__name__)
+
+# Detaspace API endpoint (replace with your actual Detaspace API endpoint)
+detaspace_api_url = "https://api.detaspace.com/log"
 
 @app.route("/")
 def root():
@@ -12,7 +16,6 @@ def root():
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-6JDE6HH266');
-
         </script>
         """
     return prefix_google + "Hello from Space! 🚀"
@@ -24,7 +27,7 @@ def logger():
 
     # Get the user agent from the request headers
     user_agent = request.headers.get('User-Agent')
-    
+
     # JavaScript code to log to the browser's console and display in a textbox
     log_to_browser = """
         <script>
@@ -32,13 +35,17 @@ def logger():
         document.getElementById('logTextbox').value = 'Logging message on the browser. User Agent: %s';
         </script>
         """ % (user_agent, user_agent)
-    
+
     # HTML response with a textbox
     response = """
         <p>Logging message on the browser. User Agent: {user_agent}</p>
         <textarea id="logTextbox" rows="5" cols="50" readonly></textarea>
         """.format(user_agent=user_agent)
-    
+
+    # Log to Detaspace
+    detaspace_log_message = f"Logging message on the browser. User Agent: {user_agent}"
+    requests.post(detaspace_api_url, data={"log_message": detaspace_log_message})
+
     return response + log_to_browser
 
 if __name__ == "__main__":
