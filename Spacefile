@@ -1,0 +1,7 @@
+# Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
+v: 0
+micros:
+  - name: TP2
+    src: TP2
+    engine: python3.9
+    primary: true
