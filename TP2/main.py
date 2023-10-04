@@ -1,10 +1,6 @@
-from flask import Flask, request
-import requests
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
-
-# Detaspace API endpoint (replace with your actual Detaspace API endpoint)
-detaspace_api_url = "https://api.detaspace.com/log"
 
 @app.route("/")
 def root():
@@ -20,33 +16,17 @@ def root():
         """
     return prefix_google + "Hello from Space! 🚀"
 
-@app.route("/logger")
+@app.route("/logger", methods=['GET', 'POST'])
 def logger():
-    # Print a log message to the Python console
-    print("Logging message in Python console.")
 
-    # Get the user agent from the request headers
-    user_agent = request.headers.get('User-Agent')
+    print("Logging message in Python console...")
 
-    # JavaScript code to log to the browser's console and display in a textbox
-    log_to_browser = """
-        <script>
-        console.log('Logging message on the browser. User Agent:', '%s');
-        document.getElementById('logTextbox').value = 'Logging message on the browser. User Agent: %s';
-        </script>
-        """ % (user_agent, user_agent)
+    text = None
+    if request.method == 'POST':
+        text = request.form.get('textarea')
+        print(text)
 
-    # HTML response with a textbox
-    response = """
-        <p>Logging message on the browser. User Agent: {user_agent}</p>
-        <textarea id="logTextbox" rows="5" cols="50" readonly></textarea>
-        """.format(user_agent=user_agent)
-
-    # Log to Detaspace
-    detaspace_log_message = f"Logging message on the browser. User Agent: {user_agent}"
-    requests.post(detaspace_api_url, data={"log_message": detaspace_log_message})
-
-    return response + log_to_browser
+    return render_template('logger.html', text=text)
 
 if __name__ == "__main__":
     app.run()
