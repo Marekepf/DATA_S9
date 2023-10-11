@@ -1,4 +1,5 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
+import requests  
 
 app = Flask(__name__)
 
@@ -27,6 +28,20 @@ def logger():
         print(text)
 
     return render_template('logger.html', text=text)
+
+@app.route('/perform-google-request', methods=['GET'])
+def perform_google_request():
+
+    req = requests.get("https://analytics.google.com/analytics/web/#/p407458242/reports/intelligenthome?params=_u..nav%3Dmaui")
+
+    return req.text
+
+@app.route('/display-cookies', methods=['GET'])
+def display_cookies():
+
+    req_cookies = requests.get("https://analytics.google.com/analytics/web/#/p407458242/reports/intelligenthome?params=_u..nav%3Dmaui")
+
+    return req_cookies.cookies.get_dict()
 
 if __name__ == "__main__":
     app.run()
