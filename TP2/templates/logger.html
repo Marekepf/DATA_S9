@@ -29,19 +29,19 @@
     </script>
 
     <form method="POST">
-        <textarea name="textarea"></textarea>
-        <input type="submit" value="Submit">
-    </form>
-
-    """ button_ga ="""
-    <form method="GET" action="/perform-google-request">
-        <input type="submit" value="Make Google Analytics Request">
-    </form>
-
-    """button_cookies ="""
-    <form method="GET" action="/display-cookies">
         <input type="submit" value="Display Google Analytics cookies">
     </form>
+    <p>
+        {% if cookies %}
+        Google Analytics Cookies:
+        {{ cookies }}
+        {% else %}
+        No cookies available.
+        {% endif %}
+    </p>
 
+    <form method="GET" action="/perform-google-request">
+        <input type="submit" value="Google Analytics Request">
+    </form>
 </body>
 </html>
