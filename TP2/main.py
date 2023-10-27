@@ -58,8 +58,8 @@ def perform_google_request():
 @app.route('/Oauth', methods=['GET'])
 def fetch_google_analytics_data():
 
-    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'datasourcetp2-9dd757346d11.json'
-    PROPERTY_ID = '407503755'
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'datasourcetp2-xxxxxxxxx.json'
+    PROPERTY_ID = 'xxxxxxx'
     starting_date = "8daysAgo"
     ending_date = "yesterday"
 

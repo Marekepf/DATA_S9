@@ -1,0 +1,6 @@
+Flask
+gunicorn
+requests
+google-analytics-data
+pytrends
+matplotlib

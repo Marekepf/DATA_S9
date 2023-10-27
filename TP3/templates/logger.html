@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logger</title>
+</head>
+<body>
+    <form method="POST">
+        <textarea name="textarea"></textarea>
+        <input type="submit" value="Submit">
+    </form>
+
+    <p>
+        {% if text %}
+        Text logged: {{ text }}
+        {% else %}
+        No text logged yet.
+        {% endif %}
+    </p>
+
+    <script>
+        // Display the logged text dynamically
+        const text = "{{ text }}";
+        if (text) {
+            console.log("Logged Text:", text);
+        }
+    </script>
+
+    <form method="POST">
+        <input type="submit" value="Display Google Analytics cookies">
+    </form>
+    <p>
+        {% if cookies %}
+        Google Analytics Cookies:
+        {{ cookies }}
+        {% else %}
+        No cookies available.
+        {% endif %}
+    </p>
+
+    <form method="GET" action="/perform-google-request">
+        <input type="submit" value="Google Analytics Request">
+    </form>
+</body>
+</html>
