@@ -87,6 +87,7 @@ def root():
         <button onclick="window.location.href='/logger'">Logger Page</button>
         <button onclick="window.location.href='/Oauth'">Oauth Page</button>
         <button onclick="window.location.href='/get_search_interest'">Search Interest Page</button>
+        <button onclick="window.location.href='/word_count_experiment'">Execution Time Page</button>
     """
 
     return title + prefix_google + buttons_html  +  "Hello from Space! 🚀"
@@ -147,6 +148,15 @@ def fetch_google_analytics_data():
         metric_value = "N/A"  
 
     return f'Number of visitors : {metric_value}'
+
+
+@app.route('/get_search_interest', methods=['GET'])
+def get_search_interest():
+    # Read the saved plot and encode it as base64
+    with open('static/plot.png', 'rb') as plot_file:
+        plot_data = base64.b64encode(plot_file.read()).decode()
+
+    return render_template('google_trends.html', plot_data=plot_data)
 
 @app.route('/word_count_results', methods=['GET'])
 def word_count_results():
